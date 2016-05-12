@@ -24,6 +24,15 @@ class App {
     static init() {
         console.log("Initialized");
         var username = $("#username");
+        var msgBody = $("#message");
+
+        msgBody.off("keypress")
+            .on("keypress", e => {
+                if(e.keyCode  == 13){
+                    console.log(`[${username.val()}] ${msgBody.val()}`)
+                    msgBody.val("");
+                }
+            })
     }
 }
 
