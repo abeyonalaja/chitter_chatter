@@ -32,7 +32,15 @@ class App {
                     console.log(`[${username.val()}] ${msgBody.val()}`)
                     msgBody.val("");
                 }
-            })
+            });
+
+        socket.connect();
+        socket.onClose( e => console.log("closed connection"));
+
+        var channel = socket.channel("rooms:lobby", {});
+        channel.join()
+            .receive("error", () => console.log("Connection error") );
+
     }
 }
 

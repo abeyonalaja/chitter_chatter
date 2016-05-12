@@ -34,4 +34,6 @@ defmodule ChitterChatter.UserSocket do
   #
   # Returning `nil` makes this socket anonymous.
   def id(_socket), do: nil
+
+  channel "rooms:*", ChitterChatter.RoomChannel
 end
