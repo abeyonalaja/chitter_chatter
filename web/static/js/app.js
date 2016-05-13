@@ -44,8 +44,14 @@ class App {
         var channel = socket.channel("rooms:lobby", {});
         channel.join()
             .receive("error", () => console.log("Connection error") )
-            .receive("ok", () => console.log("Connected") )
+            .receive("ok", () => console.log("Connected") );
+        channel.on("new:message", msg => this.renderMessage(msg))
 
+    };
+
+    static renderMessage(msg) {
+        var messages = $("#messages");
+        messages.append(`<p><b>[${msg.user}]</b>: ${msg.body}</p>`)
     }
 }
 
