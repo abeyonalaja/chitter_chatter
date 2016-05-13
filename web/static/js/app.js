@@ -30,6 +30,10 @@ class App {
             .on("keypress", e => {
                 if(e.keyCode  == 13){
                     console.log(`[${username.val()}] ${msgBody.val()}`)
+                    channel.push("new:message", {
+                        user: username.val();
+                        body: msgBody.val();
+                    })
                     msgBody.val("");
                 }
             });
@@ -39,7 +43,8 @@ class App {
 
         var channel = socket.channel("rooms:lobby", {});
         channel.join()
-            .receive("error", () => console.log("Connection error") );
+            .receive("error", () => console.log("Connection error") )
+            .receive("ok", () => console.log("Connected") )
 
     }
 }
