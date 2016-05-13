@@ -22,6 +22,11 @@ defmodule ChitterChatter.RoomChannel do
     {:noreply, socket}
   end
 
+  def handle_in("new:message", msg, socket) do
+    broadcast! socket, "new:message", %{user: msg["user"], body: msg["body"]}
+    {:noreply, socket}
+  end
+
   # This is invoked every time a notification is being broadcast
   # to the client. The default implementation is just to push it
   # downstream but one could filter or change the event.
